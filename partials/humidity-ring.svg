@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Humidity 65%">
+
+  <!-- Track ring -->
+  <circle cx="60" cy="60" r="50"
+    fill="none"
+    stroke="rgba(255,255,255,0.08)"
+    stroke-width="10"/>
+
+  <!-- Progress ring  (circumference = 2π×50 ≈ 314.16) -->
+  <circle cx="60" cy="60" r="50"
+    fill="none"
+    stroke="#38bdf8"
+    stroke-width="10"
+    stroke-dasharray="314.16"
+    stroke-dashoffset="109.96"
+    stroke-linecap="round"
+    transform="rotate(-90 60 60)"
+    id="humidityRing"/>
+
+  <!-- Percentage label -->
+  <text x="60" y="55"
+    text-anchor="middle"
+    fill="#e2eaf5"
+    font-size="22" font-weight="700"
+    font-family="Outfit,sans-serif"
+    id="humidityRingVal">65%</text>
+
+  <!-- Sub-label -->
+  <text x="60" y="74"
+    text-anchor="middle"
+    fill="#8ba3c0"
+    font-size="11"
+    font-family="Outfit,sans-serif">humidity</text>
+
+</svg>

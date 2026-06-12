@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyCast — Weather App</title>
+  <link rel="icon" type="image/x-icon" href="partials/cloudy.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="svg-sprite-host" aria-hidden="true"></div>
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <svg width="22" height="22" aria-hidden="true">
+          <use href="partials/icons.svg#icon-brand" />
+        </svg>
+      </div>
+      <span class="brand-name">SkyCast</span>
+    </div>
+
+    <form class="search-form" id="searchForm">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" aria-hidden="true">
+          <use href="partials/icons.svg#icon-search" />
+        </svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search city…" autocomplete="off" />
+        <button type="button" class="search-btn" id="search-button">
+          Search
+        </button>
+      </div>
+    </form>
+
+    <div class="nav-right">
+      <button class="location-btn" id="locationBtn" title="Use my location">
+        <svg width="16" height="16" aria-hidden="true">
+          <use href="partials/icons.svg#icon-location" />
+        </svg>
+        <span class="loc-text">My Location</span>
+      </button>
+    </div>
+  </header>
+  <div class="error-banner" id="errorBanner" role="alert">
+    <svg width="16" height="16" aria-hidden="true">
+      <use href="partials/icons.svg#icon-info" />
+    </svg>
+    <span id="errorText">City not found. Please try again.</span>
+    <button class="error-close" id="errorClose" aria-label="Close error">
+      ✕
+    </button>
+  </div>
+
+  <div class="loading-overlay" id="loadingOverlay" aria-live="polite">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Fetching weather…</p>
+  </div>
+
+  <section class="welcome-screen" id="welcomeScreen">
+    <div class="welcome-content">
+      <div class="welcome-icon">
+        <svg width="64" height="64" aria-hidden="true">
+          <use href="partials/icons.svg#icon-cloud" />
+        </svg>
+      </div>
+      <h1>Real-time Weather</h1>
+      <p>
+        Search any city or use your current location to get live weather
+        data,<br />
+        and more.
+      </p>
+    </div>
+  </section>
+
+  <main class="main-content visible" id="mainContent">
+    <div class="cards-row">
+      <div class="weather-card card-weather">
+        <div class="card-label">Current Weather</div>
+        <div class="card-location">
+          <svg width="13" height="13" aria-hidden="true">
+            <use href="partials/icons.svg#icon-location-bold" />
+          </svg>
+          <span id="cityName"></span>
+          <span class="country-badge" id="countryCode"></span>
+        </div>
+
+        <div class="card-temp-row">
+          <span class="card-temp" id="currentTemp">22°C</span>
+          <img class="card-emoji" id="weatherIcon" src="" alt="Weather Icon" />
+        </div>
+
+        <div class="card-desc" id="weatherDesc">Partly Cloudy</div>
+
+        <div class="card-divider"></div>
+
+        <div class="card-detail-grid">
+          <div class="card-detail-item">
+            <span class="detail-label">Feels like</span>
+            <span class="detail-value" id="feelsLike">20°C</span>
+          </div>
+          <div class="card-detail-item">
+            <p class="detail-label">Cloud Coverage</p>
+            <span class="detail-value" id="cloudCoverage">--%</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">High</span>
+            <span class="detail-value" id="tempHigh">25°C</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">Low</span>
+            <span class="detail-value" id="tempLow">18°C</span>
+          </div>
+        </div>
+
+        <div class="card-updated" id="lastUpdated"></div>
+      </div>
+      <div class="weather-card card-humidity">
+        <div class="card-label">Humidity</div>
+
+        <div class="humidity-ring-wrap">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="60" stroke="#1e293b" stroke-width="12" fill="transparent" />
+
+            <circle id="humidityRingCircle" cx="75" cy="75" r="60" stroke="#0ea5e9" stroke-width="12" fill="transparent"
+              stroke-linecap="round" transform="rotate(-90 75 75)" />
+          </svg>
+          <div class="humidity-ring-val" id="humidityRingVal">--%</div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="card-detail-grid">
+          <div class="card-detail-item">
+            <span class="detail-label">Dew point</span>
+            <span class="detail-value" id="dewPoint">15°C</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">Condition</span>
+            <span class="detail-value" id="humidityCondition">Comfortable</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">Pressure</span>
+            <span class="detail-value" id="pressure">1013 hPa</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">Visibility</span>
+            <span class="detail-value" id="visibility">10 km</span>
+          </div>
+        </div>
+      </div>
+      <div class="weather-card card-wind">
+        <div class="card-label">Wind</div>
+
+        <div class="compass-wrap">
+          <div class="compass" role="img" aria-label="Wind direction: South-West">
+            <div class="compass-labels">
+              <span class="c-n">N</span>
+              <span class="c-s">S</span>
+              <span class="c-w">W</span>
+              <span class="c-e">E</span>
+            </div>
+
+            <div class="compass-needle" id="compassNeedle" style="transform: rotate(225deg)">
+              <div class="needle-head"></div>
+              <div class="needle-tail"></div>
+            </div>
+          </div>
+          <span class="compass-dir-label" id="windDirLabel">SW</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-detail-grid">
+          <div class="card-detail-item">
+            <span class="detail-label">💨 Speed</span>
+            <span class="detail-value" id="windSpeed">14 km/h</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">💥 Gust</span>
+            <span class="detail-value" id="windGust">22 km/h</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">🌅 Sunrise</span>
+            <span class="detail-value" id="sunrise">5:42 AM</span>
+          </div>
+          <div class="card-detail-item">
+            <span class="detail-label">🌇 Sunset</span>
+            <span class="detail-value" id="sunset">8:15 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="app-footer">
+      <span id="footerUpdated">
+        <p id="updatedTime">Updated · Loading...</p>
+      </span>
+      <span>Powered by
+        <a href="https://openweathermap.org/" target="_blank" rel="noopener">OpenWeatherMap</a></span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
