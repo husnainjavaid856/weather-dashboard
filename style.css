@@ -596,6 +596,9 @@ body {
     flex-wrap: wrap; 
     justify-content: space-between;
   }
+  .location-btn{
+    display: none;
+  }
 
   .brand-name {
     display: none; 
