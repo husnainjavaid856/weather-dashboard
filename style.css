@@ -671,3 +671,25 @@ body {
     font-size: 14px;
   }
 }
+
+@media (max-width: 600px) {
+    header, .navbar, .nav-container { 
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        padding: 10px !important;
+        justify-content: center !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    #search-input {
+        flex: 1 !important;
+        min-width: 150px !important; 
+        width: auto !important;
+    }
+
+    #search-button, #locationBtn {
+        width: auto !important;
+        padding: 8px 12px !important;
+    }
+}
