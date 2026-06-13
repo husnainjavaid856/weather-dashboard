@@ -583,7 +583,6 @@ body {
   }
 }
 
-
 @media (max-width: 640px) {
   :root {
     --nav-h: auto; 
@@ -593,38 +592,58 @@ body {
     padding: 12px 16px;
     gap: 12px;
     height: var(--nav-h);
-    flex-wrap: wrap; 
+    display: flex !important;
+    flex-wrap: wrap !important; 
+    align-items: center;
     justify-content: space-between;
   }
-  .location-btn{
-    display: none;
+
+  .nav-brand {
+    order: 1; 
   }
 
   .brand-name {
     display: none; 
   }
 
-  .search-form {
-    max-width: unset;
-    flex: 1 1 100%; 
-  
-  }
-
-  .search-box {
-    width: 100%;
-  }
-
   .nav-right {
     margin-left: auto;
-    order: 2;
+    order: 2; 
+    display: flex !important;
   }
 
   .loc-text {
-    display: none; 
+    display: none;
   }
 
   .location-btn {
     padding: 8px 12px;
+  }
+
+  .search-form {
+    max-width: unset !important;
+    width: 100% !important;
+    flex: 1 1 100% !important; 
+    order: 3; 
+    margin-top: 4px;
+  }
+
+  .search-box {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .search-input {
+    flex: 1 !important;
+    width: 100% !important;
+    font-size: 14px;
+  }
+
+  .search-btn {
+    padding: 8px 16px !important;
+    flex-shrink: 0;
   }
 
   .cards-row {
